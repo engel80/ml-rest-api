@@ -8,6 +8,7 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
 # from sklearn.externals import joblib
+from numba import jit
 
 app = Flask(__name__)
 
@@ -26,6 +27,7 @@ clf = None
 
 
 @app.route('/predict', methods=['POST']) # Create http://host:port/predict POST end point
+@jit(target='cuda')
 def predict():
     if clf:
         try:
@@ -46,6 +48,7 @@ def predict():
 
 
 @app.route('/train', methods=['GET']) # Create http://host:port/train GET end point
+@jit(target='cuda')
 def train():
     # using random forest as an example
     # can do the training separately and just update the pickles
