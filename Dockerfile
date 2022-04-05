@@ -7,7 +7,8 @@
 # RUN git clone https://github.com/deepakiim/Deploy-machine-learning-model.git /app
 
 #####################################################################################################################
-FROM python:3.6.6-slim
+# FROM python:3.6.6-slim
+FROM python:3.8.13-slim-buster
 
 # Mount current directory to /app in the container image
 VOLUME ./:app/
