@@ -10,6 +10,9 @@ import joblib
 # from sklearn.externals import joblib
 from numba import jit
 
+import numba
+from numba import cuda
+
 app = Flask(__name__)
 
 # inputs
@@ -27,7 +30,9 @@ clf = None
 
 
 @app.route('/predict', methods=['POST']) # Create http://host:port/predict POST end point
-@jit(target='cuda')
+# @jit(target='cuda')
+# @numba.njit(target='cuda')
+# @cuda.jit(device=True)
 def predict():
     if clf:
         try:
@@ -48,7 +53,7 @@ def predict():
 
 
 @app.route('/train', methods=['GET']) # Create http://host:port/train GET end point
-@jit(target='cuda')
+# @jit(target='cuda')
 def train():
     # using random forest as an example
     # can do the training separately and just update the pickles

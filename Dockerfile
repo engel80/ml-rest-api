@@ -8,7 +8,8 @@
 
 #####################################################################################################################
 # FROM python:3.6.6-slim
-FROM python:3.8.13-slim-buster
+# FROM python:3.8.13-slim-buster
+FROM anibali/pytorch:1.10.2-cuda11.3
 
 # Mount current directory to /app in the container image
 VOLUME ./:app/
@@ -29,7 +30,7 @@ WORKDIR /app
 EXPOSE 8000
 
 # ENTRYPOINT python flask_api.py 8000
+# CMD ["gunicorn", "flask_api:app", "--bind", "0.0.0.0:8000"]
+ENV CUDA_VISIBLE_DEVICES=0
+
 CMD ["gunicorn", "flask_api:app", "--bind", "0.0.0.0:8000"]
-
-# CMD ["flask_api.py"]
-
